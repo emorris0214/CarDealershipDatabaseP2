@@ -15,6 +15,7 @@ public class UserInterface {
 
     private final Scanner scanner = new Scanner(System.in);
     private final InventoryDAO inventoryDAO = new InventoryDAO();
+    private final VehicleDAO vehicleDAO = new VehicleDAO();
     private final SalesContractDAO salesContractDAO = new SalesContractDAO();
     private final LeaseContractDAO leaseContractDAO = new LeaseContractDAO();
 
@@ -71,7 +72,7 @@ public class UserInterface {
         System.out.println("\nRecord Sales Contract:");
 
         int vehicleId = promptInt("Enter Vehicle ID to sell: ");
-        Vehicle vehicle = inventoryDAO.getVehiclesById(vehicleId);
+        Vehicle vehicle = vehicleDAO.getVehicleById(vehicleId);
 
         if (vehicle == null) {
             System.out.println("Vehicle ID not found.");
@@ -88,7 +89,7 @@ public class UserInterface {
         boolean saved = salesContractDAO.saveSalesContract(contract);
         if (saved) {
             System.out.println("Sales contract saved successfully.");
-            inventoryDAO.removeVehicleById(vehicleId);
+            vehicleDAO.removeVehicleById(vehicleId);
         } else {
             System.out.println("Error saving sales contract.");
         }
@@ -98,7 +99,7 @@ public class UserInterface {
         System.out.println("\nRecord Lease Contract:");
 
         int vehicleId = promptInt("Enter Vehicle ID to lease: ");
-        Vehicle vehicle = inventoryDAO.getVehicleById(vehicleId);
+        Vehicle vehicle = vehicleDAO.getVehicleById(vehicleId);
 
         if (vehicle == null) {
             System.out.println("Vehicle ID not found.");
@@ -114,7 +115,7 @@ public class UserInterface {
         boolean saved = leaseContractDAO.saveLeaseContract(contract);
         if (saved) {
             System.out.println("Lease contract saved successfully.");
-            inventoryDAO.removeVehicleById(vehicleId);
+            vehicleDAO.removeVehicleById(vehicleId);
         } else {
             System.out.println("Error saving lease contract.");
         }
