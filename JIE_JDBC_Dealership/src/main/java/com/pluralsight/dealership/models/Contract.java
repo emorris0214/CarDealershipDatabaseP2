@@ -2,22 +2,21 @@ package com.pluralsight.dealership.models;
 
 public abstract class Contract {
     protected String date;
+    protected String leaseEndDate;
     protected String customerName;
-    protected String customerEmail;
     protected Vehicle vehicleSold;
 
-    public Contract(String date, String customerName, String customerEmail, Vehicle vehicleSold) {
+    public Contract(String date, String customerName, String leaseEndDate, Vehicle vehicleSold) {
         this.date = date;
+        this.leaseEndDate = leaseEndDate;
         this.customerName = customerName;
-        this.customerEmail = customerEmail;
         this.vehicleSold = vehicleSold;
     }
 
     public String getDate() { return date; }
     public String getCustomerName() { return customerName; }
-    public String getCustomerEmail() {return  customerEmail; }
     public Vehicle getVehicleSold() {return vehicleSold; }
 
     public abstract double getTotalPrice();
-    public abstract double getMonthlyPayment();
+
 }

@@ -9,23 +9,21 @@ import java.util.List;
 public class SalesContractDAO {
 
     public boolean saveSalesContract(SalesContract contract) {
-        String query = "INSERT INTO sales_contracts (date, customer_name, customer_email, vehicle_id, is_financed, total_price, monthly_payment) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String query = "INSERT INTO sales_contracts (sale_date, sale_price, customer_name, vehicle_id) " +
+                "VALUES (?, ?, ?, ?)";
         try (Connection connection = DataSourceManager.getDataSource().getConnection();
              PreparedStatement statement = connection.prepareStatement(query)) {
 
             statement.setString(1, contract.getDate());
-            statement.setString(2, contract.getCustomerName());
-            statement.setString(3, contract.getCustomerEmail());
+            statement.setDouble(2, contract.getTotalPrice());
+            statement.setString(3, contract.getCustomerName());
             statement.setInt(4, contract.getVehicleSold().getVehicle_id());
-            statement.setBoolean(5, contract.isFinanced());
-            statement.setDouble(6, contract.getTotalPrice());
-            statement.setDouble(7, contract.getMonthlyPayment());
 
-            statement.executeUpdate();
+            int rowsInserted = statement.executeUpdate();
+            return rowsInserted > 0;
         } catch (SQLException e) {
             e.printStackTrace();
+            return false;
         }
-        return false;
     }
 }

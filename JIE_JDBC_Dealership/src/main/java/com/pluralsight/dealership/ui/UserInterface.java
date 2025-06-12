@@ -1,9 +1,6 @@
 package com.pluralsight.dealership.ui;
 
-import com.pluralsight.dealership.dao.InventoryDAO;
-import com.pluralsight.dealership.dao.VehicleDAO;
-import com.pluralsight.dealership.dao.SalesContractDAO;
-import com.pluralsight.dealership.dao.LeaseContractDAO;
+import com.pluralsight.dealership.dao.*;
 import com.pluralsight.dealership.models.Vehicle;
 import com.pluralsight.dealership.models.SalesContract;
 import com.pluralsight.dealership.models.LeaseContract;
@@ -16,6 +13,7 @@ public class UserInterface {
     private final Scanner scanner = new Scanner(System.in);
     private final InventoryDAO inventoryDAO = new InventoryDAO();
     private final VehicleDAO vehicleDAO = new VehicleDAO();
+    private final DealershipDAO dealershipDAO = new DealershipDAO();
     private final SalesContractDAO salesContractDAO = new SalesContractDAO();
     private final LeaseContractDAO leaseContractDAO = new LeaseContractDAO();
 
@@ -81,10 +79,8 @@ public class UserInterface {
 
         String date = promptString("Enter contract date (YYYY-MM-DD): ");
         String customerName = promptString("Enter customer name: ");
-        String customerEmail = promptString("Enter customer email: ");
-        boolean isFinanced = promptYesNo("Is the sale financed? (y/n): ");
 
-        SalesContract contract = new SalesContract(date, customerName, customerEmail, vehicle, isFinanced);
+        SalesContract contract = new SalesContract(date, customerName, vehicle);
 
         boolean saved = salesContractDAO.saveSalesContract(contract);
         if (saved) {
@@ -106,11 +102,11 @@ public class UserInterface {
             return;
         }
 
-        String date = promptString("Enter contract date (YYYY-MM-DD): ");
+        String date = promptString("Enter lease start date (YYYY-MM-DD): ");
+        String leaseEndDate = promptString("Enter lease end date (YYYY-MM-DD): ");
         String customerName = promptString("Enter customer name: ");
-        String customerEmail = promptString("Enter customer email: ");
 
-        LeaseContract contract = new LeaseContract(date, customerName, customerEmail, vehicle);
+        LeaseContract contract = new LeaseContract(date, customerName, vehicle, leaseEndDate);
 
         boolean saved = leaseContractDAO.saveLeaseContract(contract);
         if (saved) {
@@ -126,7 +122,7 @@ public class UserInterface {
             System.out.print(prompt);
             try {
                 return Integer.parseInt(scanner.nextLine().trim());
-            } catch (NumberFormatException ex) {
+            } catch (NumberFormatException e) {
                 System.out.println("Please enter a valid number.");
             }
         }

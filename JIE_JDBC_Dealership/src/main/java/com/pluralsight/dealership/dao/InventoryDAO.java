@@ -12,8 +12,8 @@ public class InventoryDAO {
     public List<Vehicle> getAllVehicles() {
         String query = """
             SELECT i.vehicle_id, i.vin, i.dealership_id,
-                   v.year, v.make, v.model, v.vehicle_type,
-                   v.color, v.odometer, v.price
+                   v.year, v.make, v.model,
+                   v.color, v.price
             FROM inventory i
             JOIN vehicles v USING (vehicle_id, vin)
         """;
@@ -23,8 +23,8 @@ public class InventoryDAO {
     public List<Vehicle> getVehiclesByPrice(double minPrice, double maxPrice) {
         String query = """
             SELECT i.vehicle_id, i.vin, i.dealership_id,
-                   v.year, v.make, v.model, v.vehicle_type,
-                   v.color, v.odometer, v.price
+                   v.year, v.make, v.model,
+                   v.color, v.price
             FROM inventory i
             JOIN vehicles v USING (vehicle_id, vin)
             WHERE v.price BETWEEN ? AND ?
@@ -35,8 +35,8 @@ public class InventoryDAO {
     public List<Vehicle> getVehiclesByMakeModel(String make, String model) {
         String query = """
             SELECT i.vehicle_id, i.vin, i.dealership_id,
-                   v.year, v.make, v.model, v.vehicle_type,
-                   v.color, v.odometer, v.price
+                   v.year, v.make, v.model,
+                   v.color, v.price
             FROM inventory i
             JOIN vehicles v USING (vehicle_id, vin)
             WHERE v.make = ? AND v.model = ?
@@ -47,8 +47,8 @@ public class InventoryDAO {
     public List<Vehicle> getVehiclesByYear(int minYear, int maxYear) {
         String query = """
             SELECT i.vehicle_id, i.vin, i.dealership_id,
-                   v.year, v.make, v.model, v.vehicle_type,
-                   v.color, v.odometer, v.price
+                   v.year, v.make, v.model,
+                   v.color, v.price
             FROM inventory i
             JOIN vehicles v USING (vehicle_id, vin)
             WHERE v.year BETWEEN ? AND ?
@@ -59,8 +59,8 @@ public class InventoryDAO {
     public List<Vehicle> getVehiclesByColor(String color) {
         String query = """
             SELECT i.vehicle_id, i.vin, i.dealership_id,
-                   v.year, v.make, v.model, v.vehicle_type,
-                   v.color, v.odometer, v.price
+                   v.year, v.make, v.model,
+                   v.color, v.price
             FROM inventory i
             JOIN vehicles v USING (vehicle_id, vin)
             WHERE v.color = ?
@@ -71,8 +71,8 @@ public class InventoryDAO {
     public List<Vehicle> getVehiclesByMileage(int minMileage, int maxMileage) {
         String query = """
             SELECT i.vehicle_id, i.vin, i.dealership_id,
-                   v.year, v.make, v.model, v.vehicle_type,
-                   v.color, v.odometer, v.price
+                   v.year, v.make, v.model,
+                   v.color, v.price
             FROM inventory i
             JOIN vehicles v USING (vehicle_id, vin)
             WHERE v.odometer BETWEEN ? AND ?
@@ -83,8 +83,8 @@ public class InventoryDAO {
     public List<Vehicle> getVehiclesByType(String type) {
         String query = """
             SELECT i.vehicle_id, i.vin, i.dealership_id,
-                   v.year, v.make, v.model, v.vehicle_type,
-                   v.color, v.odometer, v.price
+                   v.year, v.make, v.model,
+                   v.color, v.price
             FROM inventory i
             JOIN vehicles v USING (vehicle_id, vin)
             WHERE v.vehicle_type = ?
@@ -189,9 +189,7 @@ public class InventoryDAO {
                 set.getInt("year"),
                 set.getString("make"),
                 set.getString("model"),
-                set.getString("vehicle_type"),
                 set.getString("color"),
-                set.getInt("odometer"),
                 set.getDouble("price"),
                 set.getInt("dealership_id")
         );

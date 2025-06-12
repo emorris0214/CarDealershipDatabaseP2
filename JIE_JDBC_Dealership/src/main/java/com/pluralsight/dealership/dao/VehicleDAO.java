@@ -9,7 +9,7 @@ import java.util.List;
 public class VehicleDAO {
 
     public Vehicle getVehicleById(int vehicleId) {
-        String sql = "SELECT v.vehicle_id, v.vin, v.year, v.make, v.model, v.vehicle_type, v.color, v.odometer, v.price, i.dealership_id " +
+        String sql = "SELECT v.vehicle_id, v.vin, v.year, v.make, v.model, v.color, v.price, i.dealership_id " +
                 "FROM inventory i " +
                 "JOIN vehicles v ON i.vehicle_id = v.vehicle_id " +
                 "WHERE v.vehicle_id = ?";
@@ -125,7 +125,7 @@ public class VehicleDAO {
     }
 
     public void addVehicle(Vehicle vehicle) {
-        String query = "INSERT INTO inventory (vin, year, make, model, vehicle_type, color, odometer, price, dealership_id) " +
+        String query = "INSERT INTO inventory (vin, year, make, model, vehicle_type, color, price, dealership_id) " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection connection = DataSourceManager.getDataSource().getConnection();
@@ -135,11 +135,9 @@ public class VehicleDAO {
             statement.setInt(2, vehicle.getYear());
             statement.setString(3, vehicle.getMake());
             statement.setString(4, vehicle.getModel());
-            statement.setString(5, vehicle.getVehicleType());
-            statement.setString(6, vehicle.getColor());
-            statement.setInt(7, vehicle.getOdometer());
-            statement.setDouble(8, vehicle.getPrice());
-            statement.setInt(9, vehicle.getDealership_id());
+            statement.setString(5, vehicle.getColor());
+            statement.setDouble(6, vehicle.getPrice());
+            statement.setInt(7, vehicle.getDealership_id());
 
             statement.executeUpdate();
         } catch (SQLException e) {
@@ -210,9 +208,7 @@ public class VehicleDAO {
                 set.getInt("year"),
                 set.getString("make"),
                 set.getString("model"),
-                set.getString("vehicle_type"),
                 set.getString("color"),
-                set.getInt("odometer"),
                 set.getDouble("price"),
                 set.getInt("dealership_id")
         );

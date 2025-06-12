@@ -7,23 +7,23 @@ import  java.sql.*;
 
 public class LeaseContractDAO {
     public boolean saveLeaseContract(LeaseContract contract) {
-        String query = "INSERT INTO lease_contracts (date, customer_name, customer_email, vehicle_id, total_price, monthly_payment) " +
-                "VALUES (?, ?, ?, ?, ?, ?)";
+        String query = "INSERT INTO lease_contracts (lease_start, lease_end, customer_name, vehicle_id) " +
+                "VALUES (?, ?, ?, ?)";
         try (Connection connection = DataSourceManager.getDataSource().getConnection();
              PreparedStatement statement = connection.prepareStatement(query)) {
 
             statement.setString(1, contract.getDate());
-            statement.setString(2, contract.getCustomerName());
-            statement.setString(3, contract.getCustomerEmail());
+            statement.setString(2, contract.getLeaseEndDate());
+            statement.setString(3, contract.getCustomerName());
             statement.setInt(4, contract.getVehicleSold().getVehicle_id());
-            statement.setDouble(5, contract.getTotalPrice());
-            statement.setDouble(6, contract.getMonthlyPayment());
 
-            statement.executeUpdate();
+            int rowsInserted = statement.executeUpdate();
+            return rowsInserted > 0;
+
         } catch (SQLException e) {
             e.printStackTrace();
+            return false;
         }
-        return false;
     }
 }
 

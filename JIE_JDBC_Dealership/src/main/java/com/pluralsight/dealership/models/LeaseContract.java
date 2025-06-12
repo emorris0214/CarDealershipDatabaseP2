@@ -1,9 +1,15 @@
 package com.pluralsight.dealership.models;
 
 public class LeaseContract extends Contract {
+    private String leaseEndDate;
 
-    public LeaseContract(String date, String customerName, String customerEmail, Vehicle vehicleSold) {
-        super(date, customerName, customerEmail, vehicleSold);
+
+    public LeaseContract(String date, String customerName, Vehicle vehicleSold, String leaseEndDate) {
+        super(date, customerName, leaseEndDate, vehicleSold);
+    }
+
+    public String getLeaseEndDate(){
+        return leaseEndDate;
     }
 
     @Override

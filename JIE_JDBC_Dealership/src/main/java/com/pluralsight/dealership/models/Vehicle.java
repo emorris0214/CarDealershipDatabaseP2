@@ -4,30 +4,26 @@ public class Vehicle {
     private int vehicle_id; // primary key in DB
     private String vin;
     private int year;
-    private int odometer;
     private double price;
     private String make;
     private String model;
-    private String vehicleType;
     private String color;
     private int dealership_id; // foreign key
 
 
-    public Vehicle(int vehicle_id, String vin, int year, String make, String model, String vehicleType, String color, int odometer, double price, int dealership_id) {
+    public Vehicle(int vehicle_id, String vin, int year, String make, String model, String color, double price, int dealership_id) {
         this.vehicle_id = vehicle_id;
         this.vin = vin;
         this.year = year;
         this.make = make;
         this.model = model;
-        this.vehicleType = vehicleType;
         this.color = color;
-        this.odometer = odometer;
         this.price = price;
         this.dealership_id = dealership_id;
     }
 
-    public Vehicle(String vin, int year, String make, String model, String vehicleType, String color, int odometer, double price, int dealership_id) {
-        this(0, vin, year, make, model, vehicleType, color, odometer, price, dealership_id);
+    public Vehicle(String vin, int year, String make, String model, String color, double price, int dealership_id) {
+        this(0, vin, year, make, model, color, price, dealership_id);
     }
 
 
@@ -47,11 +43,6 @@ public class Vehicle {
     }
     public void setYear(int year) { this.year = year; }
 
-    public int getOdometer() {
-        return odometer;
-    }
-    public void setOdometer(int odometer) { this.odometer = odometer; }
-
     public double getPrice() {
         return price;
     }
@@ -67,11 +58,6 @@ public class Vehicle {
     }
     public void setModel(String model) { this.model = model; }
 
-    public String getVehicleType() {
-        return vehicleType;
-    }
-    public void setVehicleType(String vehicleType) { this.vehicleType = vehicleType; }
-
     public String getColor() {
         return color;
     }
@@ -83,7 +69,7 @@ public class Vehicle {
 
     @Override
     public String toString() {
-        return String.format("ID: %d | VIN: %d | Year: %d | Make: %s | Model: %s | Type: %s | Color: %s | Odometer: %d | Price: $%.2f | Dealership ID: %d",
-                vehicle_id, vin, year, make, model, vehicleType, color, odometer, price, dealership_id);
+        return String.format("ID: %d | VIN: %s | Year: %d | Make: %s | Model: %s | Color: %s | Price: $%.2f | Dealership ID: %d",
+                vehicle_id, vin, year, make, model, color, price, dealership_id);
     }
 }

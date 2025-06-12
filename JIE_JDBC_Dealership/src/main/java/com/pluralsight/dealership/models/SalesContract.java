@@ -3,19 +3,10 @@ package com.pluralsight.dealership.models;
 public class SalesContract extends Contract {
     protected boolean isFinanced;
 
-    public SalesContract(String date, String customerName, String customerEmail, Vehicle vehicleSold, boolean isFinanced) {
-        super(date, customerName, customerEmail, vehicleSold);
-        this.isFinanced = isFinanced;
+    public SalesContract(String date, String customerName, Vehicle vehicleSold) {
+        super(date, customerName, vehicleSold);
     }
 
-
-    public boolean isFinanced() {
-        return isFinanced;
-    }
-
-    public void setFinanced(boolean financed) {
-        isFinanced = financed;
-    }
 
     @Override
     public double getTotalPrice() {
@@ -27,7 +18,7 @@ public class SalesContract extends Contract {
         return price + tax + recordingFee + processingFee;
     }
 
-    @Override
+    /*@Override
     public double getMonthlyPayment() {
         if (!isFinanced) return 0.0;
 
@@ -45,6 +36,6 @@ public class SalesContract extends Contract {
 
         double monthlyRate = interestRate / 12.0;
         return (totalPrice * monthlyRate) / (1- Math.pow(1 + monthlyRate, -loanTerm));
-    }
+    }*/
 
 }
